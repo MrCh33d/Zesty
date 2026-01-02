@@ -1,40 +1,1107 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My Landing Page</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Beat Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #040711;
+      --bg-alt: #0b1020;
+      --accent: #ff4b8b;
+      --accent-soft: rgba(255, 75, 139, 0.1);
+      --text: #f5f5f5;
+      --text-soft: #b3b7c9;
+      --border: #24283a;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 6px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #15193a, #040711 55%);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    /* Header */
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background: conic-gradient(
+        from 120deg,
+        #ff4b8b,
+        #ffbe3d,
+        #4dd2ff,
+        #ff4b8b
+      );
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-logo::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 11px;
+      background: #040711;
+    }
+
+    .brand-text-main {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-size: 18px;
+    }
+
+    .brand-text-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cart-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(8, 13, 35, 0.8);
+      border: 1px solid var(--border);
+      font-size: 12px;
+    }
+
+    .cart-indicator span.badge {
+      min-width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .header-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(120deg, #14172b, #13162c);
+      padding: 7px 14px;
+      font-size: 12px;
+      color: var(--text-soft);
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .header-btn span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #00ff99;
+      box-shadow: 0 0 10px #00ff99;
+    }
+
+    /* Hero / Filters */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1.2fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .hero-main {
+      background: radial-gradient(circle at top left, #1d2144, #050712);
+      border-radius: var(--radius-lg);
+      padding: 18px 18px 16px;
+      border: 1px solid #22253a;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-chip {
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(2, 6, 23, 0.8);
+      margin-bottom: 12px;
+    }
+
+    .hero-chip span.pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .hero-title {
+      font-size: clamp(22px, 3.6vw, 30px);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .hero-highlight {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      color: var(--text-soft);
+      max-width: 420px;
+      margin-bottom: 16px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .tag-pill {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(4, 7, 27, 0.85);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 16px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .hero-stats strong {
+      color: var(--text);
+      font-size: 13px;
+      display: block;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(255, 75, 139, 0.35), transparent);
+      right: -80px;
+      bottom: -120px;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .hero-side {
+      border-radius: var(--radius-lg);
+      border: 1px solid #22253a;
+      background: radial-gradient(circle at top, #171a38, #050712);
+      padding: 14px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .search-input-wrap {
+      flex: 1;
+      position: relative;
+    }
+
+    .search-input-wrap input {
+      width: 100%;
+      padding: 8px 30px 8px 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(5, 9, 30, 0.95);
+      color: var(--text);
+      font-size: 12px;
+      outline: none;
+    }
+
+    .search-input-wrap input::placeholder {
+      color: var(--text-soft);
+    }
+
+    .search-input-wrap span.icon-left {
+      position: absolute;
+      left: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .search-input-wrap span.icon-right {
+      position: absolute;
+      right: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #00ff99;
+      box-shadow: 0 0 8px #00ff99;
+    }
+
+    .filter-btn {
+      font-size: 12px;
+      border-radius: 999px;
+      padding: 8px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(8, 12, 34, 0.96);
+      cursor: pointer;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .license-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .chip-soft {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(6, 9, 30, 0.9);
+      color: var(--text-soft);
+    }
+
+    .chip-soft.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .mini-note {
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    /* Beat grid */
+
+    .section-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      margin-top: 4px;
+    }
+
+    .section-title-row h2 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 600;
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    .section-title-row small {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .beat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .beat-card {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: radial-gradient(circle at top, #12152b, #050816);
+      padding: 11px 11px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .beat-top {
+      display: flex;
+      gap: 10px;
+    }
+
+    .beat-cover {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ff4b8b, #ffbe3d);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .beat-cover::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 11px;
+      background: radial-gradient(circle at 20% 20%, #20264f, #050712);
+    }
+
+    .beat-cover span.wave {
+      position: absolute;
+      inset: 12px;
+      border-radius: 10px;
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+      opacity: 0.8;
+    }
+
+    .beat-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .beat-title-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      align-items: baseline;
+    }
+
+    .beat-title {
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .beat-bpm {
+      font-size: 10px;
+      color: var(--accent);
+      opacity: 0.9;
+      white-space: nowrap;
+    }
+
+    .beat-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 3px;
+    }
+
+    .beat-tag {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(5, 9, 30, 0.9);
+      padding: 2px 7px;
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    .beat-bottom {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .play-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: radial-gradient(circle, #1a1f3e, #050816);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .wave-bar {
+      flex: 1;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .wave-bar span {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--accent), #ffbe3d);
+      width: 0%;
+    }
+
+    .beat-price {
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .add-btn {
+      font-size: 11px;
+      border-radius: 999px;
+      padding: 5px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: var(--accent-soft);
+      color: var(--accent);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* Cart drawer */
+
+    .cart-drawer {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      width: 280px;
+      max-width: calc(100% - 32px);
+      border-radius: 18px;
+      border: 1px solid #23263a;
+      background: rgba(5, 8, 20, 0.96);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
+      padding: 10px 11px 11px;
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .cart-header-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      opacity: 0.8;
+    }
+
+    .cart-header small {
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    .cart-items {
+      max-height: 150px;
+      overflow-y: auto;
+      margin-bottom: 6px;
+      padding-right: 6px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 4px 2px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .cart-item-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cart-item-title {
+      font-size: 11px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cart-item-meta {
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    .cart-item-right {
+      text-align: right;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .cart-remove {
+      font-size: 10px;
+      color: var(--accent);
+      border: none;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+      margin-top: 2px;
+    }
+
+    .cart-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .cart-total-label {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .cart-total-amount {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .checkout-btn {
+      flex: 1;
+      border-radius: 999px;
+      border: none;
+      padding: 7px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: linear-gradient(120deg, var(--accent), #ffbe3d);
+      color: #050712;
+      cursor: pointer;
+    }
+
+    .cart-note {
+      font-size: 10px;
+      color: var(--text-soft);
+      margin-top: 3px;
+      opacity: 0.8;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .cart-drawer {
+        left: 16px;
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
     <header>
-      Welcome
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div>
+          <div class="brand-text-main">LUXE BEATS</div>
+          <div class="brand-text-sub">Type beats • licenses • instant delivery</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="header-btn" type="button">
+          <span class="dot"></span>
+          <span>Producer dashboard</span>
+        </button>
+        <div class="cart-indicator">
+          <span>Cart</span>
+          <span class="badge" id="cart-count">0</span>
+        </div>
+      </div>
     </header>
-    
-    <section class="features">
-      features
+
+    <section class="hero">
+      <div class="hero-main">
+        <div class="hero-chip">
+          <span class="pulse"></span>
+          New drops every week
+        </div>
+        <h1 class="hero-title">
+          Premium <span class="hero-highlight">Type Beats</span> for serious artists
+        </h1>
+        <p class="hero-subtitle">
+          Instant MP3 & WAV delivery after purchase. Non-exclusive and unlimited licenses available.
+        </p>
+        <div class="hero-tags">
+          <div class="tag-pill">Drake type</div>
+          <div class="tag-pill">Trap</div>
+          <div class="tag-pill">Afrobeats</div>
+          <div class="tag-pill">RnB</div>
+          <div class="tag-pill">Boom bap</div>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <strong>200+ beats</strong>
+            in catalog
+          </div>
+          <div>
+            <strong>Instant files</strong>
+            no email wait
+          </div>
+          <div>
+            <strong>Safe licenses</strong>
+            for streaming
+          </div>
+        </div>
+        <div class="hero-glow"></div>
+      </div>
+      <aside class="hero-side">
+        <div class="search-row">
+          <div class="search-input-wrap">
+            <span class="icon-left">🔎</span>
+            <input
+              id="search-input"
+              type="text"
+              placeholder="Search beats by name, vibe…"
+            />
+            <span class="icon-right"></span>
+          </div>
+          <button class="filter-btn" type="button">
+            ☰ Filters
+          </button>
+        </div>
+        <div class="license-row">
+          <span class="chip-soft active" data-license="basic">Basic MP3</span>
+          <span class="chip-soft" data-license="wav">WAV + stems</span>
+          <span class="chip-soft" data-license="unlimited">Unlimited license</span>
+        </div>
+        <p class="mini-note">
+          Click a license to see prices update. Swap later inside the cart if you change your mind.
+        </p>
+      </aside>
     </section>
 
-    <section class="quote">
-      <p>
-        <script type="text/javascript">
-
-const api_url ="https://zenquotes.io/api/quotes/";
-
-async function getapi(url)
-{
-  const response = await fetch(url);
-  var data = await response.json();
-  console.log(data);
-}
-
-getapi(api_url);
-
-</script>
-      </p>
+    <section>
+      <div class="section-title-row">
+        <h2>Featured beats</h2>
+        <small id="results-count">4 beats</small>
+      </div>
+      <div class="beat-grid" id="beat-grid">
+        <!-- Beat cards injected by JS -->
+      </div>
     </section>
-    <footer>
-      footer
-    </footer>
+  </div>
 
+  <!-- Cart -->
+  <div class="cart-drawer">
+    <div class="cart-header">
+      <div>
+        <div class="cart-header-title">Cart</div>
+        <small id="cart-empty-label">No items yet</small>
+      </div>
+      <div>
+        <small id="cart-license-label">License: Basic MP3</small>
+      </div>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer">
+      <div>
+        <div class="cart-total-label">Total</div>
+        <div class="cart-total-amount" id="cart-total">$0.00</div>
+      </div>
+      <button class="checkout-btn" type="button" id="checkout-btn">
+        Checkout
+      </button>
+    </div>
+    <p class="cart-note">
+      After checkout you'll receive instant download links to your beats (MP3/WAV) and license PDFs.
+    </p>
+  </div>
+
+  <!-- Audio element used for simple playback -->
+  <audio id="player"></audio>
+
+  <script>
+    // ---------- DATA (replace with your real beats & audio URLs) ----------
+    const beats = [
+      {
+        id: 1,
+        title: "Midnight Drive",
+        tags: ["Drake type", "RnB", "Dark"],
+        bpm: 140,
+        key: "F# minor",
+        // Replace these with your real audio file URLs
+        audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav",
+        prices: {
+          basic: 29.99,
+          wav: 59.99,
+          unlimited: 99.99,
+        },
+      },
+      {
+        id: 2,
+        title: "Skyline Dreams",
+        tags: ["Trap", "Emotional", "Guitar"],
+        bpm: 150,
+        key: "C minor",
+        audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars3.wav",
+        prices: {
+          basic: 24.99,
+          wav: 49.99,
+          unlimited: 89.99,
+        },
+      },
+      {
+        id: 3,
+        title: "Ocean Waves",
+        tags: ["Afrobeats", "Summer", "Bounce"],
+        bpm: 102,
+        key: "A major",
+        audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/CantinaBand60.wav",
+        prices: {
+          basic: 34.99,
+          wav: 69.99,
+          unlimited: 109.99,
+        },
+      },
+      {
+        id: 4,
+        title: "Golden Hour",
+        tags: ["Boom bap", "Jazz", "Chill"],
+        bpm: 92,
+        key: "D minor",
+        audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/ImperialMarch60.wav",
+        prices: {
+          basic: 19.99,
+          wav: 39.99,
+          unlimited: 79.99,
+        },
+      },
+    ];
+
+    // ---------- STATE ----------
+    let activeLicense = "basic"; // "basic" | "wav" | "unlimited"
+    let cart = [];
+    let filteredBeats = [...beats];
+    let currentlyPlayingId = null;
+
+    // ---------- DOM ELEMENTS ----------
+    const beatGrid = document.getElementById("beat-grid");
+    const resultsCountEl = document.getElementById("results-count");
+    const searchInput = document.getElementById("search-input");
+    const licenseChips = document.querySelectorAll(".chip-soft");
+    const cartCountEl = document.getElementById("cart-count");
+    const cartItemsEl = document.getElementById("cart-items");
+    const cartTotalEl = document.getElementById("cart-total");
+    const cartEmptyLabelEl = document.getElementById("cart-empty-label");
+    const cartLicenseLabelEl = document.getElementById("cart-license-label");
+    const checkoutBtn = document.getElementById("checkout-btn");
+    const player = document.getElementById("player");
+
+    // ---------- RENDERING BEATS ----------
+    function formatPrice(value) {
+      return "$" + value.toFixed(2);
+    }
+
+    function renderBeats() {
+      beatGrid.innerHTML = "";
+      filteredBeats.forEach((beat) => {
+        const card = document.createElement("article");
+        card.className = "beat-card";
+        card.dataset.id = beat.id;
+
+        const price = beat.prices[activeLicense];
+
+        card.innerHTML = `
+          <div class="beat-top">
+            <div class="beat-cover">
+              <span class="wave"></span>
+            </div>
+            <div class="beat-meta">
+              <div class="beat-title-row">
+                <div class="beat-title">${beat.title}</div>
+                <div class="beat-bpm">${beat.bpm} BPM • ${beat.key}</div>
+              </div>
+              <div class="beat-tags">
+                ${beat.tags
+                  .map((tag) => `<span class="beat-tag">${tag}</span>`)
+                  .join("")}
+              </div>
+            </div>
+          </div>
+          <div class="beat-bottom">
+            <button class="play-btn" type="button" data-action="play" aria-label="Play beat">
+              ▶
+            </button>
+            <div class="wave-bar">
+              <span></span>
+            </div>
+            <div class="beat-price">${formatPrice(price)}</div>
+            <button class="add-btn" type="button" data-action="add">
+              Add
+            </button>
+          </div>
+        `;
+
+        beatGrid.appendChild(card);
+      });
+
+      resultsCountEl.textContent =
+        filteredBeats.length + (filteredBeats.length === 1 ? " beat" : " beats");
+    }
+
+    // ---------- SEARCH ----------
+    function applySearch() {
+      const q = searchInput.value.trim().toLowerCase();
+      if (!q) {
+        filteredBeats = [...beats];
+      } else {
+        filteredBeats = beats.filter((beat) => {
+          const text =
+            beat.title.toLowerCase() +
+            " " +
+            beat.tags.join(" ").toLowerCase() +
+            " " +
+            String(beat.bpm);
+          return text.includes(q);
+        });
+      }
+      renderBeats();
+    }
+
+    searchInput.addEventListener("input", applySearch);
+
+    // ---------- LICENSE SWITCHING ----------
+    licenseChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const licenseKey = chip.dataset.license;
+        activeLicense = licenseKey;
+
+        licenseChips.forEach((c) => c.classList.remove("active"));
+        chip.classList.add("active");
+
+        const labelMap = {
+          basic: "Basic MP3",
+          wav: "WAV + stems",
+          unlimited: "Unlimited license",
+        };
+        cartLicenseLabelEl.textContent = "License: " + labelMap[licenseKey];
+
+        // Update cart prices + beat cards
+        updateCartTotals();
+        renderBeats();
+      });
+    });
+
+    // ---------- PLAYBACK ----------
+    function handlePlayClick(beatId, card) {
+      const beat = beats.find((b) => b.id === beatId);
+      if (!beat) return;
+
+      const button = card.querySelector(".play-btn");
+      const waveFill = card.querySelector(".wave-bar span");
+
+      if (currentlyPlayingId === beatId && !player.paused) {
+        player.pause();
+        button.textContent = "▶";
+        waveFill.style.width = "0%";
+        currentlyPlayingId = null;
+        return;
+      }
+
+      // reset all buttons
+      document.querySelectorAll(".play-btn").forEach((btn) => (btn.textContent = "▶"));
+      document
+        .querySelectorAll(".wave-bar span")
+        .forEach((el) => (el.style.width = "0%"));
+
+      player.src = beat.audioUrl;
+      player.play().catch(() => {});
+
+      button.textContent = "⏸";
+      currentlyPlayingId = beatId;
+
+      const updateWave = () => {
+        if (player.duration) {
+          const percent = (player.currentTime / player.duration) * 100;
+          waveFill.style.width = percent + "%";
+        }
+        if (!player.paused && currentlyPlayingId === beatId) {
+          requestAnimationFrame(updateWave);
+        } else if (player.paused) {
+          // keep wave at last position or reset if ended
+        }
+      };
+      requestAnimationFrame(updateWave);
+    }
+
+    player.addEventListener("ended", () => {
+      currentlyPlayingId = null;
+      document.querySelectorAll(".play-btn").forEach((btn) => (btn.textContent = "▶"));
+      document
+        .querySelectorAll(".wave-bar span")
+        .forEach((el) => (el.style.width = "0%"));
+    });
+
+    // ---------- CART ----------
+    function addToCart(beatId) {
+      const existing = cart.find((item) => item.beatId === beatId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ beatId, qty: 1 });
+      }
+      updateCartTotals();
+    }
+
+    function removeFromCart(beatId) {
+      cart = cart.filter((item) => item.beatId !== beatId);
+      updateCartTotals();
+    }
+
+    function updateCartTotals() {
+      cartItemsEl.innerHTML = "";
+
+      let total = 0;
+      cart.forEach((item) => {
+        const beat = beats.find((b) => b.id === item.beatId);
+        if (!beat) return;
+
+        const price = beat.prices[activeLicense];
+        total += price * item.qty;
+
+        const row = document.createElement("div");
+        row.className = "cart-item";
+        row.innerHTML = `
+          <div class="cart-item-main">
+            <div class="cart-item-title">${beat.title}</div>
+            <div class="cart-item-meta">${item.qty} × ${formatPrice(price)}</div>
+          </div>
+          <div class="cart-item-right">
+            <div>${formatPrice(price * item.qty)}</div>
+            <button class="cart-remove" data-id="${beat.id}" type="button">
+              remove
+            </button>
+          </div>
+        `;
+        cartItemsEl.appendChild(row);
+      });
+
+      cartTotalEl.textContent = formatPrice(total);
+      cartCountEl.textContent = cart.reduce((s, item) => s + item.qty, 0);
+
+      if (cart.length === 0) {
+        cartEmptyLabelEl.textContent = "No items yet";
+      } else {
+        cartEmptyLabelEl.textContent = cart.length + " item" + (cart.length > 1 ? "s" : "");
+      }
+
+      // attach remove handlers
+      cartItemsEl.querySelectorAll(".cart-remove").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = Number(btn.dataset.id);
+          removeFromCart(id);
+        });
+      });
+    }
+
+    checkoutBtn.addEventListener("click", () => {
+      if (!cart.length) {
+        alert("Your cart is empty.");
+        return;
+      }
+      const itemsSummary = cart
+        .map((item) => {
+          const beat = beats.find((b) => b.id === item.beatId);
+          const price = beat.prices[activeLicense];
+          return `${item.qty} × ${beat.title} (${formatPrice(price)})`;
+        })
+        .join("\n");
+
+      alert(
+        "This is a front-end demo.\n\nHere is your order:\n\n" +
+          itemsSummary +
+          "\n\nTotal: " +
+          cartTotalEl.textContent +
+          "\n\nIn a real store, you would now be redirected to your payment gateway."
+      );
+    });
+
+    // ---------- EVENT DELEGATION FOR BEAT CARDS ----------
+    beatGrid.addEventListener("click", (event) => {
+      const card = event.target.closest(".beat-card");
+      if (!card) return;
+      const beatId = Number(card.dataset.id);
+
+      if (event.target.matches("[data-action='add']")) {
+        addToCart(beatId);
+      }
+      if (event.target.matches("[data-action='play']")) {
+        handlePlayClick(beatId, card);
+      }
+    });
+
+    // ---------- INITIAL RENDER ----------
+    renderBeats();
+    updateCartTotals();
+  </script>
 </body>
 </html>
+
